@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Độ khó Rank Liên Quân</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: rgba(0,0,0,0.4);
+      padding: 30px 40px;
+      border-radius: 12px;
+      text-align: center;
+      width: 340px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .difficulty {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .easy { color: #4caf50; }
+    .normal { color: #ffeb3b; }
+    .hard { color: #ff9800; }
+    .hell { color: #f44336; }
+    .time {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Liên Quân Mobile</h1>
+
+    <select id="rankSelect">
+      <option value="">-- Chọn rank của bạn --</option>
+      <option value="dong">Đồng</option>
+      <option value="bac">Bạc</option>
+      <option value="vang">Vàng</option>
+      <option value="bachkim">Bạch Kim</option>
+      <option value="kimcuong">Kim Cương</option>
+      <option value="tinhanh">Tinh Anh</option>
+      <option value="caothu">Cao Thủ</option>
+      <option value="thachdau">Thách Đấu</option>
+    </select>
+
+    <div class="difficulty" id="difficulty">Chưa chọn rank</div>
+    <div class="time" id="time"></div>
+  </div>
+
+  <script>
+    const rankDifficulty = {
+      dong: { text: "Dễ", class: "easy" },
+      bac: { text: "Dễ", class: "easy" },
+      vang: { text: "Trung bình", class: "normal" },
+      bachkim: { text: "Trung bình", class: "normal" },
+      kimcuong: { text: "Khó", class: "hard" },
+      tinhanh: { text: "Rất khó", class: "hard" },
+      caothu: { text: "Ác mộng", class: "hell" },
+      thachdau: { text: "Ác mộng", class: "hell" }
+    };
+
+    function updateDifficulty() {
+      const rank = document.getElementById("rankSelect").value;
+      const el = document.getElementById("difficulty");
+
+      if (!rank) {
+        el.className = "difficulty";
+        el.textContent = "Chưa chọn rank";
+        return;
+      }
+
+      const diff = rankDifficulty[rank];
+      el.className = "difficulty " + diff.class;
+      el.textContent = "Độ khó: " + diff.text;
+
+      const now = new Date();
+      document.getElementById("time").textContent = "Cập nhật lúc: " + now.toLocaleString("vi-VN");
+    }
+
+    document.getElementById("rankSelect").addEventListener("change", updateDifficulty);
+
+    // Tự làm mới mỗi 24h
+    setInterval(updateDifficulty, 86400000);
+  </script>
+</body>
+</html>
